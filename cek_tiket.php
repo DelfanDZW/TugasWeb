@@ -1,8 +1,7 @@
 <?php
 session_start();
-require 'db.php'; // Pastikan file ini ada dan diakses
+require 'db.php'; 
 
-// Pastikan pengguna sudah login
 if (!isset($_SESSION['username'])) {
     header('Location: login.php');
     exit();
@@ -11,16 +10,18 @@ if (!isset($_SESSION['username'])) {
 $username = $_SESSION['username'];
 
 try {
-    $query = "SELECT orders.banyak_tiket, bis.nama_bis, bis.destination, bis.pickup_location 
+    $stmt = $pdo->prepare("SELECT * FROM pengguna WHERE username = ?");
+    $stmt->execute([$_SESSION['username']]);
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+    $query = "SELECT orders.banyak_tiket, bis.nama_bis, orders.destinasi, orders.lokasi_jemput, pengguna.username
               FROM orders 
               JOIN bis ON orders.bus_id = bis.id 
-              WHERE orders.username = :username";
+              JOIN pengguna ON orders.user_id = pengguna.id
+              WHERE pengguna.id = ?";
     
     $stmt = $pdo->prepare($query);
-    $stmt->bindParam(':username', $username);
-    $stmt->execute();
+    $stmt->execute([$user['id']]);
     
-    // Tampilkan daftar tiket yang dipesan
     $tickets = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
     die("Query failed: " . $e->getMessage());
@@ -40,11 +41,10 @@ try {
         </tr>
         <?php foreach ($tickets as $row): ?>
             <tr>
-                <td><?php echo htmlspecialchars($row['bus_name']); ?></td>
-                <td><?php echo htmlspecialchars($row['destination']); ?></td>
-                <td><?php echo htmlspecialchars($row['pickup_location']); ?></td>
-                <td><?php echo htmlspecialchars($row['ticket_quantity']); ?></td>
-                <td><?php echo htmlspecialchars($row['booking_date']); ?></td>
+                <td><?php echo htmlspecialchars($row['nama_bis']); ?></td>
+                <td><?php echo htmlspecialchars($row['destinasi']); ?></td>
+                <td><?php echo htmlspecialchars($row['lokasi_jemput']); ?></td>
+                <td><?php echo htmlspecialchars($row['banyak_tiket']); ?></td>
             </tr>
         <?php endforeach; ?>
     </table>

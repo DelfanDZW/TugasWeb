@@ -3,12 +3,11 @@ session_start();
 require 'db.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $username = $_POST['username'];
-    $password = $_POST['password'];
+    $username = trim($_POST['username']);
+    $password = trim($_POST['password']);
 
-    $stmt = $pdo->prepare("SELECT * FROM pengguna WHERE username = :username");
-    $stmt->bindValue(':username', $username, PDO::PARAM_STR);
-    $stmt->execute();
+    $stmt = $pdo->prepare("SELECT * FROM pengguna WHERE username = ?");
+    $stmt->execute([$username]);
 
     if ($stmt->rowCount() > 0) {
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
