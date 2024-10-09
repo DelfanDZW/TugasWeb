@@ -2,20 +2,17 @@
 session_start();
 require 'db.php';
 
-// Cek apakah admin sudah login
 if (!isset($_SESSION['admin_logged_in'])) {
     header('Location: admin_login.php');
     exit();
 }
 
-// Proses form untuk menambahkan bis
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $nama_bis = $_POST['nama_bis'];
     $harga_tiket = $_POST['harga_tiket'];
     $lokasi_jemput = $_POST['lokasi_jemput'];
     $destinasi = $_POST['destinasi'];
 
-    // Memasukkan data bus ke dalam tabel buses
     $stmt = $pdo->prepare("INSERT INTO bis (nama_bis, harga_tiket) VALUES (?, ?)");
     $stmt->execute([$nama_bis, $harga_tiket]);
 
