@@ -28,28 +28,38 @@ try {
 }
 ?>
 
-<h2>Tiket yang Dipesan</h2>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cek Tiket</title>
+    <link rel="stylesheet" type="text/css" href="style2.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Tiket yang Dipesan</h2>
 
-<?php if (count($tickets) > 0): ?>
-    <table>
-        <tr>
-            <th>Nama Bus</th>
-            <th>Tujuan</th>
-            <th>Tempat Penjemputan</th>
-            <th>Jumlah Tiket</th>
-            <th>Tanggal Pemesanan</th>
-        </tr>
-        <?php foreach ($tickets as $row): ?>
-            <tr>
-                <td><?php echo htmlspecialchars($row['nama_bis']); ?></td>
-                <td><?php echo htmlspecialchars($row['destinasi']); ?></td>
-                <td><?php echo htmlspecialchars($row['lokasi_jemput']); ?></td>
-                <td><?php echo htmlspecialchars($row['banyak_tiket']); ?></td>
-            </tr>
-        <?php endforeach; ?>
-    </table>
-<?php else: ?>
-    <p>Tidak ada tiket yang dipesan.</p>
-<?php endif; ?>
+        <?php if (count($tickets) > 0): ?>
+            <table>
+                <tr>
+                    <th>Nama Bis</th>
+                    <th>Tujuan</th>
+                    <th>Tempat Penjemputan</th>
+                    <th>Jumlah Tiket</th>
+                </tr>
+                <?php foreach ($tickets as $row): ?>
+                    <tr>
+                        <td><?php echo htmlspecialchars($row['nama_bis']); ?></td>
+                        <td><?php echo htmlspecialchars($row['destinasi']); ?></td>
+                        <td><?php echo htmlspecialchars($row['lokasi_jemput']); ?></td>
+                        <td><?php echo htmlspecialchars($row['banyak_tiket']); ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            </table>
+        <?php else: ?>
+            <p>Tidak ada tiket yang dipesan.</p>
+        <?php endif; ?>
 
-<a href="logout.php">Logout</a>
+        <a href="logout.php">Logout</a>
+    </div>
+</body>
+</html>

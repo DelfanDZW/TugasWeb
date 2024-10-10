@@ -16,20 +16,32 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             header('Location: booking.php');
             exit();
         } else {
-            echo "Username atau password salah!".$username;
+            echo "<script>alert('Username tidak ada!');</script>".$username;
         }
     } else {
-        echo "Username tidak ada!";
+        echo "<script>alert('Username tidak ada!');</script>";
     }
 }
 ?>
 
-<form method="POST" action="login.php">
-    <label>Username:</label>
-    <input type="text" name="username" required><br>
-    <label>Password:</label>
-    <input type="password" name="password" required><br>
-    <button type="submit">Login</button>
-</form>
-<p>Belum punya akun? <a href="register.php">Register di sini</a></p>
-<p><a href="admin_login.php">Admin Only</a></p>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+    <link rel="stylesheet" type="text/css" href="login.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Login</h2>
+        <form method="POST" action="login.php">
+            <label>Username:</label>
+            <input type="text" name="username" required><br>
+            <label>Password:</label>
+            <input type="password" name="password" required><br>
+            <button type="submit">Login</button>
+        </form>
+        <p>Belum punya akun? <a href="register.php">Register di sini</a></p>
+        <p><a href="admin_login.php">Admin Only</a></p>
+    </div>
+</body>
+</html>

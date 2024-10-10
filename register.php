@@ -12,13 +12,25 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 ?>
 
-<h2>Registrasi</h2>
-<form method="POST" action="register.php">
-    <label>Username:</label>
-    <input type="text" name="username" required><br>
 
-    <label>Password:</label>
-    <input type="password" name="password" required><br>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+    <link rel="stylesheet" type="text/css" href="login.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Registrasi</h2>
+        <form method="POST" action="register.php">
+            <label>Username:</label>
+            <input type="text" name="username" required><br>
 
-    <button type="submit">Register</button>
-</form>
+            <label>Password:</label>
+            <input type="password" name="password" required><br>
+
+            <button type="submit">Register</button>
+        </form>
+</div>
+</body>
+</html>
